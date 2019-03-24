@@ -38,6 +38,13 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
 
+        $this.validate($request, [
+            'name' => 'required|unique:companies',
+            'email' => 'email',
+            'website' => 'url',
+            'logo' => 'dimensions:min_width=100,min_height=100'
+        ]);
+
         $company = new Company([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
@@ -81,6 +88,12 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $this.validate($request, [
+            'name' => 'required',
+            'email' => 'email',
+            'website' => 'url'
+        ]);
 
         $company = Company::find($id);
         $company->name = $request->get('name');

@@ -37,6 +37,13 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
 
+        $this->validate($request, [
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'email' => 'email',
+            'phone' => 'regex:/(01)[0-9]{9}/'
+        ]);
+
         $employee = new Employee([
             'firstName' => $request->get('firstName'),
             'lastName' => $request->get('lastName'),
@@ -82,6 +89,13 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $this->validate($request, [
+            'firstName' => 'required',
+            'lastName' => 'required',
+            'email' => 'email',
+            'phone' => 'regex:/(01)[0-9]{9}/'
+        ]);
 
         $employee = Employee::find($id);
         $employee->firstName = $request->get('firstName');
